@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ApplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="account_number" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="creation_date" Type="DateTime" Precision="3" />
+    <Property Name="id_customer" Type="Int32" />
+    <Property Name="status" Type="Int16" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK__Account__id_cust__286302EC" FromRole="Account" ToRole="Customers" />
+    <NavigationProperty Name="Cards" Relationship="Self.FK__Cards__id_accoun__32E0915F" FromRole="Account" ToRole="Cards" />
+    <NavigationProperty Name="Transfers" Relationship="Self.FK__Transfers__id_ac__2F10007B" FromRole="Account" ToRole="Transfers" />
+    <NavigationProperty Name="Transfers1" Relationship="Self.FK__Transfers__id_ac__300424B4" FromRole="Account" ToRole="Transfers" />
+  </EntityType>
+  <EntityType Name="Cards">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="card_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="expiration" Type="DateTime" Precision="3" />
+    <Property Name="cvv" Type="Int32" Nullable="false" />
+    <Property Name="creation_date" Type="DateTime" Precision="3" />
+    <Property Name="company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="id_account" Type="Int32" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__Cards__id_accoun__32E0915F" FromRole="Cards" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Client_dni" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__Account__id_cust__286302EC" FromRole="Customers" ToRole="Account" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Users__id_custom__2A4B4B5E" FromRole="Customers" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Transfers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_account_from" Type="Int32" Nullable="false" />
+    <Property Name="id_account_to" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="transfer_date" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__Transfers__id_ac__2F10007B" FromRole="Transfers" ToRole="Account" />
+    <NavigationProperty Name="Account1" Relationship="Self.FK__Transfers__id_ac__300424B4" FromRole="Transfers" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="id_customer" Type="Int32" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK__Users__id_custom__2A4B4B5E" FromRole="Users" ToRole="Customers" />
+  </EntityType>
+  <Association Name="FK__Account__id_cust__286302EC">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="Account" Type="Self.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cards__id_accoun__32E0915F">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="Cards" Type="Self.Cards" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cards">
+        <PropertyRef Name="id_account" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transfers__id_ac__2F10007B">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Transfers" Type="Self.Transfers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Transfers">
+        <PropertyRef Name="id_account_from" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transfers__id_ac__300424B4">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Transfers" Type="Self.Transfers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Transfers">
+        <PropertyRef Name="id_account_to" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__id_custom__2A4B4B5E">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ApplicationEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Account" EntityType="Self.Account" />
+    <EntitySet Name="Cards" EntityType="Self.Cards" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" />
+    <EntitySet Name="Transfers" EntityType="Self.Transfers" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK__Account__id_cust__286302EC" Association="Self.FK__Account__id_cust__286302EC">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Account" EntitySet="Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cards__id_accoun__32E0915F" Association="Self.FK__Cards__id_accoun__32E0915F">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Cards" EntitySet="Cards" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transfers__id_ac__2F10007B" Association="Self.FK__Transfers__id_ac__2F10007B">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Transfers" EntitySet="Transfers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transfers__id_ac__300424B4" Association="Self.FK__Transfers__id_ac__300424B4">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Transfers" EntitySet="Transfers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__id_custom__2A4B4B5E" Association="Self.FK__Users__id_custom__2A4B4B5E">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

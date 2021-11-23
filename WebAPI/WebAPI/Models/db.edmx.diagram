@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0685fa5f9bf0494ab66f7f8bdfb444ef" Name="Diagram1">
+        <EntityTypeShape EntityType="ApplicationModel.Account" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplicationModel.Cards" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplicationModel.Customers" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplicationModel.Transfers" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplicationModel.Users" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="ApplicationModel.FK__Account__id_cust__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplicationModel.FK__Cards__id_accoun__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplicationModel.FK__Transfers__id_ac__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplicationModel.FK__Transfers__id_ac__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplicationModel.FK__Users__id_custom__2A4B4B5E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
